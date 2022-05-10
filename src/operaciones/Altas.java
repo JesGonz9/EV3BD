@@ -34,7 +34,5 @@ public class Altas extends Conexion{
 			System.out.println(e.getMessage());
 		}
 	
-		
-		
 	}
 }
