@@ -168,9 +168,7 @@ public class Modificacion extends Conexion {
 			} else {
 				System.out.println("Modificacion cancelada");
 			}
-			
-			
-			 
+				 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			

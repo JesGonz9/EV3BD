@@ -14,8 +14,12 @@ public class Principal {
 		
 		Altas al = new Altas(/*aqui podria pasar la tabla*/);
 		//al.alta("Orbea", "Orca", "M", "Menta", "Zapata", "Carbono", "no", "no", 5, 4999);
+		
 		Modificacion md = new Modificacion();
-		md.modGrp();
+		//md.modGrp();
+		
+		Bajas bj = new Bajas();
+		bj.bajasInd();
 		
 		
 		
