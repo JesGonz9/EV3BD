@@ -9,7 +9,8 @@ import utilidades.Conexion;
 
 public class Bajas extends Conexion {
 	
-	Scanner teclado = new Scanner(System.in);	
+	Scanner teclado = new Scanner(System.in);
+	Listado ls = new Listado();
 	
 	public void bajasInd() {
 		
@@ -64,12 +65,45 @@ public class Bajas extends Conexion {
 	
 	public void bajasGrp() {
 		
-		String query = "DELETE FROM bicicletas WHERE stock ? ?";
-		System.out.println("***ELIMINACION DE ARTICULOS SEGUN STOCK ***\n");
-		System.out.print("Con stock superior (+) o inferior (-) a > ");
+		String query = "DELETE FROM bicicletas WHERE marca = ?";
+		
+		System.out.println("***ELIMINACION DE ARTICULOS SEGUN MARCA ***\n");
+		
 		
 		try(PreparedStatement ps = conectarPS(query)){
 			
+				System.out.print("Marca a eliminar > ");
+				String eliminar = teclado.nextLine().trim();
+				
+				ps.setString(1, eliminar);
+				
+				System.out.println("\nArticulos que se eliminaran:");
+				int log = ls.consultaListado(String.format("WHERE marca = '%s'", eliminar));
+				
+				if(log == 0) {
+					System.out.println("Continuar? (s/N)");
+					String resp = teclado.nextLine().trim().toLowerCase();
+					if(resp.length() > 0) {
+						if(resp.charAt(0) == 's') {
+						
+							int cont = ps.executeUpdate();
+							System.out.println("Registros eliminados: " + cont);
+						
+						} else {
+							System.out.println("Operacion cancelada");
+						}
+					
+					} else {
+						System.out.println("Operacion cancelada");
+					}
+				}
+				
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 		
 	}

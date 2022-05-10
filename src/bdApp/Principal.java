@@ -19,8 +19,8 @@ public class Principal {
 		//md.modGrp();
 		
 		Bajas bj = new Bajas();
-		bj.bajasInd();
-		
+		//bj.bajasInd();
+		bj.bajasGrp();
 		
 		
 		
