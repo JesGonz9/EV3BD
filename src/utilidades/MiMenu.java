@@ -1,6 +1,5 @@
 package utilidades;
 
-
 import java.util.*;
 
 public class MiMenu {
@@ -21,46 +20,10 @@ public class MiMenu {
 		}
 	}
 	
-	//Clase gestion para menasje de entrada
-	public class Entrada {
-		private String entrada = "";
-		//private int codigo = 0;
-		
-		//Constructor
-		public Entrada(String entrada) {
-			this.entrada = entrada;
-			//this.codigo = codigo;
-		}
-
-		/*public String getEntrada() {
-			return entrada;
-		}*/
-		
-		/*
-		public int getCodigo() {
-			return codigo;
-		}
-	*/
-		@Override
-		public String toString() {
-			return String.format("Entrada [%-30s] (%4d)", this.entrada/*, this.codigo*/);
-		}
-		
-	}
-	
 	public int getOpcion() {
 		return opcion;
 	}
-	
-	/*
-	public int getCodigo() {
-		if (menu.isEmpty()==false)
-			return menu.get(opcion-1).getCodigo();
-		
-		else
-			return 0;
-	}
-	*/
+
 	public String getEntrada() {
 		if (menu.isEmpty()==false)
 			return menu.get(opcion-1);
@@ -68,13 +31,11 @@ public class MiMenu {
 			return "N/A";
 	}
 	
-	private void add(String entrada)
-	{
+	private void add(String entrada) {
 		menu.add(entrada);
 	}
 	
-	private int leerOpcion()
-	{
+	private int leerOpcion() {
 		
 		boolean sw = true;
 		do {
@@ -94,8 +55,7 @@ public class MiMenu {
 		return opcion;
 	}
 	
-	public int ver()
-	{
+	public int ver() {
 		this.opcion = 0;
 		if (menu.size()==0) return this.opcion;
 		
@@ -120,7 +80,5 @@ public class MiMenu {
 	@Override
 	public String toString() {
 		return "Clase MiMenu (2018)";
-	}
-	
-	
+	}	
 }
