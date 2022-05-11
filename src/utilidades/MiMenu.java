@@ -6,33 +6,44 @@ import java.util.*;
 public class MiMenu {
 	
 	//Variables 
-	private ArrayList <Entrada> menu = new ArrayList<Entrada>(); //objetos entrada
-	private int opcion = 0;
+	private ArrayList <String> menu = new ArrayList<String>(); //objetos entrada
+	private int opcion = 0; //Numero a partir del 1 asociado a cada entrada
+	private String encabezado = "";
 	private Scanner teclado = new Scanner(System.in);
 	
+	//Crea un menu con el encabezado y las opciones que le pasemos
+	public MiMenu(String encabezado, String ... opciones) {
+		
+		this.encabezado = encabezado;
+		
+		for (int i = 0; i < opciones.length; i++) {
+			add(opciones[i]);
+		}
+	}
 	
 	//Clase gestion para menasje de entrada
 	public class Entrada {
 		private String entrada = "";
-		private int codigo = 0;
+		//private int codigo = 0;
 		
 		//Constructor
-		public Entrada(String entrada, int codigo) {
+		public Entrada(String entrada) {
 			this.entrada = entrada;
-			this.codigo = codigo;
+			//this.codigo = codigo;
 		}
 
-		public String getEntrada() {
+		/*public String getEntrada() {
 			return entrada;
-		}
-
+		}*/
+		
+		/*
 		public int getCodigo() {
 			return codigo;
 		}
-
+	*/
 		@Override
 		public String toString() {
-			return String.format("Entrada [%-30s] (%4d)", this.entrada, this.codigo);
+			return String.format("Entrada [%-30s] (%4d)", this.entrada/*, this.codigo*/);
 		}
 		
 	}
@@ -41,29 +52,25 @@ public class MiMenu {
 		return opcion;
 	}
 	
+	/*
 	public int getCodigo() {
 		if (menu.isEmpty()==false)
 			return menu.get(opcion-1).getCodigo();
+		
 		else
 			return 0;
 	}
-	
+	*/
 	public String getEntrada() {
 		if (menu.isEmpty()==false)
-			return menu.get(opcion-1).getEntrada();
+			return menu.get(opcion-1);
 		else
 			return "N/A";
 	}
 	
-	
-	public void add(String entrada)
+	private void add(String entrada)
 	{
-		this.add(entrada, 0);
-	}
-	
-	public void add(String entrada, int codigo)
-	{
-		menu.add(new Entrada(entrada,codigo));
+		menu.add(entrada);
 	}
 	
 	private int leerOpcion()
@@ -89,11 +96,6 @@ public class MiMenu {
 	
 	public int ver()
 	{
-		return this.ver("Men�");
-	}
-	
-	public int ver(String encabezado)
-	{
 		this.opcion = 0;
 		if (menu.size()==0) return this.opcion;
 		
@@ -105,7 +107,7 @@ public class MiMenu {
 		// Men� de opciones
 		for(int i=0;i<menu.size();i++)
 		{
-			System.out.printf("\n%3d. %s",i+1,menu.get(i).getEntrada());
+			System.out.printf("\n%3d. %s",i+1,menu.get(i));
 		}
 		System.out.println();
 		return leerOpcion();
