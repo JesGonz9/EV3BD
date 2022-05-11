@@ -32,15 +32,8 @@ public class Conexion {
 		return cn.prepareStatement(query);
 	}
 
-	
-	
 	private Connection conexion() throws SQLException {
 		
 		return DriverManager.getConnection(url, user, password);
-	}
-	
-	
-	
-	
-	
+	}	
 }

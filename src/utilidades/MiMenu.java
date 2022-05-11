@@ -10,6 +10,7 @@ public class MiMenu {
 	private int opcion = 0;
 	private Scanner teclado = new Scanner(System.in);
 	
+	
 	//Clase gestion para menasje de entrada
 	public class Entrada {
 		private String entrada = "";
