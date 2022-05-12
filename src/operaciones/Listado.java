@@ -12,6 +12,7 @@ public class Listado extends Conexion {
 		
 		public void consultaListado(int filas) { //Controla filas
 			this.filas = filas;
+			consultaListado();
 		}
 	
 		public int consultaListado(String condicion) { //Añade un filtro al listado base

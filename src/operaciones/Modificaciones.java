@@ -8,7 +8,7 @@ import java.util.Scanner;
 import utilidades.Conexion;
 import utilidades.Validaciones;
 
-public class Modificacion extends Conexion {
+public class Modificaciones extends Conexion {
 	
 	Scanner teclado = new Scanner(System.in);
 	Listado ls = new Listado();
