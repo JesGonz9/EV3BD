@@ -7,33 +7,22 @@ import utilidades.*;
 
 public class Altas extends Conexion{
 	
-	private void altaDatos(String datos[]) {
+	private void altaDatos(String datos[], int stock, double pvp) {
 		String query = "INSERT INTO bicicletas VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement ps = conectarPS(query)) {
 			
-			
 			ps.setString(1, datos[0]);
-			System.out.println("ok0");
 			ps.setString(2, datos[1]);
-			System.out.println("ok1");
 			ps.setString(3, datos[2]);
-			System.out.println("ok2");
 			ps.setString(4, datos[3]);
-			System.out.println("ok3");
 			ps.setString(5, datos[4]);
-			System.out.println("ok4");
 			ps.setString(6, datos[5]);
-			System.out.println("ok5");
 			ps.setBoolean(7, datos[6].contains("s"));
-			System.out.println("ok6");
 			ps.setBoolean(8, datos[7].contains("s"));
-			System.out.println("ok7");
-			ps.setInt(9, Integer.parseInt(datos[8]));
-			System.out.println("ok8");
-			ps.setDouble(10, Double.parseDouble(datos[9]));
-			System.out.println("ok9");
-/*LOG*/		System.out.println(ps);
+			ps.setInt(9, stock);
+			ps.setDouble(10, pvp);
+			
 			ps.executeUpdate();
 			System.out.println("Listado actualizado!");
 			
@@ -51,7 +40,7 @@ public class Altas extends Conexion{
 		
 		Scanner teclado = new Scanner(System.in);
 		
-		String[] datos = new String[10];
+		String[] datos = new String[8];
 		
 		System.out.println("Introduce los siguiente datos:");
 		
@@ -79,13 +68,11 @@ public class Altas extends Conexion{
 		System.out.print("\nSuspension trasera? (s/n) > ");
 		datos[7] = teclado.nextLine().trim();
 		
-		datos[8] = Validaciones.validaNumero("Stock > ");
+		int stock = (int)Validaciones.validaNumero("Stock > ");
 				
-		datos[9] = Validaciones.validaNumero("PVP > ");
+		double pvp = Validaciones.validaNumero("PVP > ");
 		
-		altaDatos(datos);
-		
-		
-		
+		altaDatos(datos, stock, pvp);
+	
 	}
 }

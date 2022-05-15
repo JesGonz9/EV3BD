@@ -12,6 +12,7 @@ import utilidades.MiMenu;
  * Opciones de seguir haciendo gestiones
  * Cambiar clases a estaticas para no tener que crear objetos
  * Parametrizar pruebas con JUnit
+ * Crear una rama para usar todo en estático cuando este acabado
  */
 
 
@@ -21,8 +22,9 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		//Menus 
-		MiMenu principal = new MiMenu("SISTEMA DE GESTION DE INVENTARIO", "Listado de productos", "Añadir productos", "Eliminar productos");	
+		MiMenu principal = new MiMenu("SISTEMA DE GESTION DE INVENTARIO", "Listado de productos", "Añadir productos", "Modificar productos", "Eliminar productos");	
 		MiMenu listado = new MiMenu("OPCIONES DE LISTADO", "Listado completo", "Listado Parcial");
+		MiMenu modif = new MiMenu("OPCIONS DE MODIFICACION", "En grupo", "Individuales");
 		MiMenu bajas = new MiMenu("OPCIONES DE ELIMINACION", "Individualmente", "Por grupos");
 		
 		//Objetos que necesitaremos
@@ -35,7 +37,7 @@ public class Principal {
 		//Inicio de la app
 		principal.ver();
 		
-		switch (principal.getOpcion()) {
+		switch(principal.getOpcion()) {
 		
 		case 1:
 			listado.ver();
@@ -48,9 +50,28 @@ public class Principal {
 			}
 			break;
 		
-		case 2:
-			al.alta();
-
+		case 2: al.alta(); break;
+			
+		case 3: 
+			modif.ver();
+			
+			switch(modif.getOpcion()) {
+			
+			case 1: md.modGrp(); break;
+			case 2: md.modInd(); break;
+			}
+	
+			break;
+		
+		case 4: 
+			bajas.ver();
+			switch(bajas.getOpcion()) {
+			
+			case 1: bj.bajasInd(); break;
+			case 2: bj.bajasGrp(); break;
+			}
+			
+			break;
 		default:
 			break;
 		}

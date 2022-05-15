@@ -89,5 +89,4 @@ public class Listado extends Conexion {
 				}
 			return 0;
 		}
-
 }

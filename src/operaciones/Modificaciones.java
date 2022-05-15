@@ -50,47 +50,43 @@ public class Modificaciones extends Conexion {
 						String dato = "";
 						mod++;
 						
-						System.out.println("Marca:");
+						System.out.println("Marca > ");
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateString("marca", dato);
 						
 						
-						System.out.println("Modelo:");
+						System.out.println("\nModelo > ");
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateString("modelo", dato);
 						
 						
-						System.out.println("Talla:");
+						System.out.println("\nTalla > ");
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateString("talla", dato);
 						
-						System.out.println("Color:");
+						System.out.println("\nColor > ");
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateString("Color", dato);
 						
-						System.out.println("Freno:");
+						System.out.println("\nFreno > ");
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateString("Freno", dato);
 						
-						System.out.println("Material:");
+						System.out.println("\nMaterial > ");
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateString("material", dato);
 						
-						System.out.println("Suspension Delantera (Si/No):");
+						System.out.println("\nSuspension Delantera (Si/No) > ");
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateBoolean("susp_del", dato.charAt(0) == 's'? true:false);
 						
-						System.out.println("Suspension trasera (Si/No):");
+						System.out.println("\nSuspension trasera (Si/No) > ");
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateBoolean("susp_tras", dato.charAt(0) == 's'? true:false);
 						
-						System.out.println("Stock:");
-						dato = teclado.nextLine().trim();
-						if(dato.length() > 0) rs.updateInt("stock", Integer.parseInt(dato));
+						rs.updateInt("stock", (int)Validaciones.validaNumero("Stock > " ));
 						
-						System.out.println("Precio:");
-						dato = teclado.nextLine().trim();
-						if(dato.length() > 0) rs.updateDouble("pvp", Double.parseDouble(dato));
+						rs.updateDouble("pvp", Validaciones.validaNumero("PVP > " ));
 						
 						rs.updateRow();
 					}

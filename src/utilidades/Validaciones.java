@@ -27,22 +27,14 @@ public class Validaciones {
 		}
 	}
 	
-	public static String validaNumero(String mensaje) {
+	public static double validaNumero(String mensaje) {
 		
 		Scanner teclado = new Scanner(System.in);
 		
 		while(true) {
 			try {
 				System.out.print("\n" + mensaje );
-				String num = teclado.nextLine();
-				if(num.contains(".")) {
-					Double.parseDouble(num);
-					
-				} else {
-					Integer.parseInt(num);
-				}
-				
-				return num;
+				return Double.parseDouble(teclado.nextLine().trim());
 				
 			} catch(NumberFormatException e) {
 				System.out.println("Introduce un valor numerico\n");
