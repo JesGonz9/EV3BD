@@ -5,14 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import utilidades.Conexion;
+import static utilidades.Conexion.conectarSTmod;
+import static utilidades.Conexion.conectarPS;
 
-public class Bajas extends Conexion {
+public final class Bajas {
 	
-	Scanner teclado = new Scanner(System.in);
-	Listado ls = new Listado();
+	static Scanner teclado = new Scanner(System.in);
 	
-	public void bajasInd() {
+	private Bajas() {};
+	
+	public static void bajasInd() {
 		
 		System.out.print("Modelo que contenga > ");
 		String contiene = teclado.nextLine().trim();
@@ -20,12 +22,10 @@ public class Bajas extends Conexion {
 		
 		try(ResultSet rs = conectarSTmod(query)) {
 			
-			int cont = 0;
 			int del = 0;
 			
 			while(rs.next()) {
 				
-				cont++;
 				System.out.printf("%8s %12s %7s %8s %15s %15s %10s %10s %7s %6s \n", "MARCA", "MODELO", "TALLA", "COLOR", "FRENO", "MATERIAL", "SUSP_DEL", "SUSP_TRAS", "STOCK", "PVP");
 				System.out.printf(
 					"%10s %10s %5s %10s %20s %10s %7s %10s %8d %10.2f \n",
@@ -63,7 +63,7 @@ public class Bajas extends Conexion {
 		
 	}
 	
-	public void bajasGrp() {
+	public static void bajasGrp() {
 		
 		String query = "DELETE FROM bicicletas WHERE marca = ?";
 		
@@ -78,7 +78,7 @@ public class Bajas extends Conexion {
 				ps.setString(1, eliminar);
 				
 				System.out.println("\nArticulos que se eliminaran:");
-				int log = ls.consultaListado(String.format("WHERE marca = '%s'", eliminar));
+				int log = Listado.consultaListado(String.format("WHERE marca = '%s'", eliminar));
 				
 				if(log == 0) {
 					System.out.println("Continuar? (s/N)");

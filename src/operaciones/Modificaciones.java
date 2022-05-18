@@ -5,16 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import utilidades.Conexion;
-import utilidades.Validaciones;
+import static utilidades.Conexion.conectarSTmod;
+import static utilidades.Conexion.conectarPS;
+import static utilidades.Validaciones.*;
 
-public class Modificaciones extends Conexion {
+
+public final class Modificaciones {
 	
-	Scanner teclado = new Scanner(System.in);
-	Listado ls = new Listado();
-	Validaciones vl = new Validaciones();
+	static Scanner teclado = new Scanner(System.in);
 	
-	public void modInd() { //Modificaciones individuales
+	private Modificaciones() {}
+	
+	public static void modInd() { //Modificaciones individuales
 
 		System.out.println("Primera letra de la marca");
 		String empieza = teclado.nextLine().trim().toLowerCase();
@@ -84,9 +86,9 @@ public class Modificaciones extends Conexion {
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateBoolean("susp_tras", dato.charAt(0) == 's'? true:false);
 						
-						rs.updateInt("stock", (int)Validaciones.validaNumero("Stock > " ));
+						rs.updateInt("stock", (int)validaNumero("Stock > " ));
 						
-						rs.updateDouble("pvp", Validaciones.validaNumero("PVP > " ));
+						rs.updateDouble("pvp", validaNumero("PVP > " ));
 						
 						rs.updateRow();
 					}
@@ -104,7 +106,7 @@ public class Modificaciones extends Conexion {
 		
 	}
 	
-	public void modGrp() { //Modificaciones en grupo
+	public static void modGrp() { //Modificaciones en grupo
 		
 		String query = "UPDATE bicicletas SET pvp = pvp * ? WHERE stock <= ?";
 		
@@ -123,11 +125,11 @@ public class Modificaciones extends Conexion {
 						
 						System.out.print("Stock minimo para aplicar descuento > ");
 						stockMin = Integer.parseInt(teclado.nextLine());
-						vl.validaSigno(stockMin, 0);
+						validaSigno(stockMin, 0);
 						
 						System.out.print("\nDescuento a aplicar (%) > ");
 						descuento = Double.parseDouble(teclado.nextLine());
-						vl.validaRango((int)descuento, 1, 100);
+						validaRango((int)descuento, 1, 100);
 						
 						break;
 						
@@ -141,7 +143,7 @@ public class Modificaciones extends Conexion {
 			
 			//Mostrar los registros que se modificaran
 			System.out.println("\nREGISTROS QUE VAN A SER MODIFICADOS\n");
-			ls.consultaListado(String.format("WHERE stock <= %d ORDER BY stock", stockMin));
+			Listado.consultaListado(String.format("WHERE stock <= %d ORDER BY stock", stockMin));
 			
 			System.out.println("Modificar precio? (s/N)");
 			String resp = teclado.nextLine().trim().toLowerCase();
@@ -155,7 +157,7 @@ public class Modificaciones extends Conexion {
 					
 					//Registros ya modificados
 					System.out.println("\nRESULTADO DE LA MODIFICACION\n");
-					ls.consultaListado(String.format("WHERE stock <= %d ORDER BY stock", stockMin));
+					Listado.consultaListado(String.format("WHERE stock <= %d ORDER BY stock", stockMin));
 					
 				} else {
 					System.out.println("Modificacion cancelada");

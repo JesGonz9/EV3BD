@@ -2,16 +2,18 @@ package utilidades;
 
 import java.sql.*;
 
-public class Conexion {
+public final class Conexion {
 	
-	private String url = "jdbc:mysql://localhost:3306/dam1" +
+	private static String url = "jdbc:mysql://localhost:3306/dam1" +
 			"?useUnicode=true&characterEncoding=UTF-8" +
 			"&autoReconnect=true&useSSL=false";
-	private String user = "root";
-	private String password = "";
+	private static String user = "root";
+	private static String password = "";
+	
+	private Conexion() {};
 	
 	//Statement
-	protected ResultSet conectarST(String query) throws SQLException {
+	public static ResultSet conectarST(String query) throws SQLException {
 		
 		Connection cn = conexion();
 		Statement st = cn.createStatement();
@@ -19,7 +21,7 @@ public class Conexion {
 	}
 	
 	//Statement con ResultSet modificado
-	protected ResultSet conectarSTmod(String query) throws SQLException {
+	public static ResultSet conectarSTmod(String query) throws SQLException {
 		
 		Connection cn = conexion();
 		Statement st = cn.createStatement(
@@ -29,14 +31,14 @@ public class Conexion {
 	}
 	
 	//PreparedStatement
-	protected PreparedStatement conectarPS(String query) throws SQLException {
+	public static PreparedStatement conectarPS(String query) throws SQLException {
 		
 		Connection cn = conexion();
 		return cn.prepareStatement(query);
 	}
 	
 	//Callable Statement
-	protected ResultSet conectarCal(String filtro) throws SQLException {
+	public static ResultSet conectarCal(String filtro) throws SQLException {
 		
 		Connection cn = conexion();
 		CallableStatement cst = cn.prepareCall("{call stockCero(?)}");
@@ -45,7 +47,7 @@ public class Conexion {
 	}
 	
 	//Conexion
-	private Connection conexion() throws SQLException {
+	private static Connection conexion() throws SQLException {
 		
 		return DriverManager.getConnection(url, user, password);
 	}	

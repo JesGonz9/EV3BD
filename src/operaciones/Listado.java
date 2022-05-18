@@ -2,20 +2,22 @@ package operaciones;
 
 import java.sql.*;
 
-import utilidades.Conexion;
+import static utilidades.Conexion.conectarST;
 
 
-public class Listado extends Conexion {
+public final class Listado {
 	
-		private String query = "SELECT * FROM bicicletas";
-		private int filas = -1;
+		private static String query = "SELECT * FROM bicicletas";
+		private static int filas = -1;
 		
-		public void consultaListado(int filas) { //Controla filas
-			this.filas = filas;
+		private Listado() {};
+		
+		public static void consultaListado(int Nfilas) { //Controla filas
+			filas = Nfilas;
 			consultaListado();
 		}
 	
-		public int consultaListado(String condicion) { //Añade un filtro al listado base
+		public static int consultaListado(String condicion) { //Añade un filtro al listado base
 			
 			int log = 1;
 			
@@ -27,7 +29,7 @@ public class Listado extends Conexion {
 			return log;
 		}
 			
-		public int consultaListado() { //Consulta base sin filtro
+		public static int consultaListado() { //Consulta base sin filtro
 			
 			int log = 1;
 			
@@ -41,7 +43,7 @@ public class Listado extends Conexion {
 			return log;
 		}
 		
-		public int consultaListado(ResultSet rs) { //Maneja los resultsets
+		public static int consultaListado(ResultSet rs) { //Maneja los resultsets
 
 			try(rs) {
 				

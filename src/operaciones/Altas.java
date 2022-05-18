@@ -3,11 +3,15 @@ package operaciones;
 import java.sql.*;
 import java.util.Scanner;
 
-import utilidades.*;
+import static utilidades.Validaciones.validaNumero;
+import static utilidades.Conexion.conectarPS;
 
-public class Altas extends Conexion{
+
+public final class Altas {
 	
-	private void altaDatos(String datos[], int stock, double pvp) {
+	private Altas() {}
+	
+	private static void altaDatos(String datos[], int stock, double pvp) {
 		String query = "INSERT INTO bicicletas VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement ps = conectarPS(query)) {
@@ -36,43 +40,43 @@ public class Altas extends Conexion{
 	
 	}
 	
-	public void alta() {
+	public static void alta() {
 		
-		Scanner teclado = new Scanner(System.in);
-		
-		String[] datos = new String[8];
-		
-		System.out.println("Introduce los siguiente datos:");
-		
-		System.out.print("Marca > ");
-		datos[0] = teclado.nextLine().trim();
+		try (Scanner teclado = new Scanner(System.in)) {
+			String[] datos = new String[8];
+			
+			System.out.println("Introduce los siguiente datos:");
+			
+			System.out.print("Marca > ");
+			datos[0] = teclado.nextLine().trim();
 
-		System.out.print("\nModelo > ");
-		datos[1] = teclado.nextLine().trim();
-		
-		System.out.print("\nTalla > ");
-		datos[2] = teclado.nextLine().trim().toUpperCase();
-		
-		System.out.print("\nColor > ");
-		datos[3] = teclado.nextLine().trim();
-		
-		System.out.print("\nFreno > ");
-		datos[4] = teclado.nextLine().trim();
-		
-		System.out.print("\nMaterial > ");
-		datos[5] = teclado.nextLine().trim();
-		
-		System.out.print("\nSuspension delantera? (s/n) > ");
-		datos[6] = teclado.nextLine().trim();
-		
-		System.out.print("\nSuspension trasera? (s/n) > ");
-		datos[7] = teclado.nextLine().trim();
-		
-		int stock = (int)Validaciones.validaNumero("Stock > ");
-				
-		double pvp = Validaciones.validaNumero("PVP > ");
-		
-		altaDatos(datos, stock, pvp);
+			System.out.print("\nModelo > ");
+			datos[1] = teclado.nextLine().trim();
+			
+			System.out.print("\nTalla > ");
+			datos[2] = teclado.nextLine().trim().toUpperCase();
+			
+			System.out.print("\nColor > ");
+			datos[3] = teclado.nextLine().trim();
+			
+			System.out.print("\nFreno > ");
+			datos[4] = teclado.nextLine().trim();
+			
+			System.out.print("\nMaterial > ");
+			datos[5] = teclado.nextLine().trim();
+			
+			System.out.print("\nSuspension delantera? (s/n) > ");
+			datos[6] = teclado.nextLine().trim();
+			
+			System.out.print("\nSuspension trasera? (s/n) > ");
+			datos[7] = teclado.nextLine().trim();
+			
+			int stock = (int)validaNumero("Stock > ");
+					
+			double pvp = validaNumero("PVP > ");
+			
+			altaDatos(datos, stock, pvp);
+		}
 	
 	}
 }

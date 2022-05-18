@@ -3,11 +3,13 @@ package operaciones;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import utilidades.Conexion;
+import static utilidades.Conexion.conectarCal;
 
-public class Calculos extends Conexion{
+public final class Calculos {
 	
-	public void calculoMedia(String marca) {
+	private Calculos() {}
+	
+	public static void calculoMedia(String marca) {
 		
 		try(ResultSet rs = conectarCal(marca)){
 			

@@ -2,16 +2,18 @@ package utilidades;
 
 import java.util.Scanner;
 
-public class Validaciones {
+public final class Validaciones {
 	
-	public void validaRango(int num, int rInf, int rSup) throws Exception {
+	private Validaciones() {}
+	
+	public static void validaRango(int num, int rInf, int rSup) throws Exception {
 		
 		if(num < rInf || num > rSup) {
 			throw new Exception("Valores fuera del rango " + rInf + " - " + rSup + "\n");
 		}
 	}
 	
-	public void validaSigno(int num, int signo) throws Exception {
+	public static void validaSigno(int num, int signo) throws Exception {
 		
 		if(signo >= 0) {
 			
@@ -29,19 +31,19 @@ public class Validaciones {
 	
 	public static double validaNumero(String mensaje) {
 		
-		Scanner teclado = new Scanner(System.in);
-		
-		while(true) {
-			try {
-				System.out.print("\n" + mensaje );
-				return Double.parseDouble(teclado.nextLine().trim());
+		try (Scanner teclado = new Scanner(System.in)) {
+			while(true) {
+				try {
+					System.out.print("\n" + mensaje );
+					return Double.parseDouble(teclado.nextLine().trim());
+					
+				} catch(NumberFormatException e) {
+					System.out.println("Introduce un valor numerico\n");
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
+				}
 				
-			} catch(NumberFormatException e) {
-				System.out.println("Introduce un valor numerico\n");
-			} catch(Exception e) {
-				System.out.println(e.getMessage());
 			}
-			
 		}
 
 	}
