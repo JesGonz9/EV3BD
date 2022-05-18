@@ -22,7 +22,7 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		//Menus 
-		MiMenu principal = new MiMenu("SISTEMA DE GESTION DE INVENTARIO", "Listado de productos", "Añadir productos", "Modificar productos", "Eliminar productos");	
+		MiMenu principal = new MiMenu("SISTEMA DE GESTION DE INVENTARIO", "Listado de productos", "Añadir productos", "Modificar productos", "Eliminar productos", "Calculo de medias");	
 		MiMenu listado = new MiMenu("OPCIONES DE LISTADO", "Listado completo", "Listado Parcial");
 		MiMenu modif = new MiMenu("OPCIONS DE MODIFICACION", "En grupo", "Individuales");
 		MiMenu bajas = new MiMenu("OPCIONES DE ELIMINACION", "Individualmente", "Por grupos");
@@ -33,6 +33,7 @@ public class Principal {
 		Altas al = new Altas();
 		Modificaciones md = new Modificaciones();
 		Bajas bj = new Bajas();
+		Calculos cl = new Calculos();
 		
 		//Inicio de la app
 		principal.ver();
@@ -72,6 +73,11 @@ public class Principal {
 			}
 			
 			break;
+		
+		case 5:
+			System.out.print("Marca > ");
+			String marca = teclado.nextLine().trim();
+			cl.calculoMedia(marca);
 		default:
 			break;
 		}

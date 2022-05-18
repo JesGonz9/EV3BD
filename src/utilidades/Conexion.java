@@ -10,6 +10,7 @@ public class Conexion {
 	private String user = "root";
 	private String password = "";
 	
+	//Statement
 	protected ResultSet conectarST(String query) throws SQLException {
 		
 		Connection cn = conexion();
@@ -17,6 +18,7 @@ public class Conexion {
 		return st.executeQuery(query);
 	}
 	
+	//Statement con ResultSet modificado
 	protected ResultSet conectarSTmod(String query) throws SQLException {
 		
 		Connection cn = conexion();
@@ -26,12 +28,23 @@ public class Conexion {
 		return st.executeQuery(query);
 	}
 	
+	//PreparedStatement
 	protected PreparedStatement conectarPS(String query) throws SQLException {
 		
 		Connection cn = conexion();
 		return cn.prepareStatement(query);
 	}
-
+	
+	//Callable Statement
+	protected ResultSet conectarCal(String filtro) throws SQLException {
+		
+		Connection cn = conexion();
+		CallableStatement cst = cn.prepareCall("{call stockCero(?)}");
+		cst.setString(1, filtro);
+		return cst.executeQuery();
+	}
+	
+	//Conexion
 	private Connection conexion() throws SQLException {
 		
 		return DriverManager.getConnection(url, user, password);
