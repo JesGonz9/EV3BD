@@ -16,10 +16,13 @@ public final class Modificaciones {
 	
 	private Modificaciones() {}
 	
+	
 	public static void modInd() { //Modificaciones individuales
 
 		System.out.println("Primera letra de la marca");
 		String empieza = teclado.nextLine().trim().toLowerCase();
+		if(cancelar(empieza)) return;
+		
 		String query = String.format("SELECT * FROM bicicletas WHERE marca LIKE '%s%c' ORDER BY marca", empieza, '%');
 		
 		try(ResultSet rs = conectarSTmod(query)){
@@ -32,7 +35,7 @@ public final class Modificaciones {
 				cont++;
 				System.out.printf("%8s %12s %7s %8s %15s %15s %10s %10s %7s %6s \n", "MARCA", "MODELO", "TALLA", "COLOR", "FRENO", "MATERIAL", "SUSP_DEL", "SUSP_TRAS", "STOCK", "PVP");
 				System.out.printf(
-					"%10s %10s %5s %10s %20s %10s %7s %10s %8d %10.2f \n",
+					"%10s %10s %5s %10s %20s %10s %7s %10s %8d %,10.2f \n",
 						rs.getString("marca"),
 						rs.getString("modelo"),
 						rs.getString("talla"),
@@ -86,16 +89,32 @@ public final class Modificaciones {
 						dato = teclado.nextLine().trim();
 						if(dato.length() > 0) rs.updateBoolean("susp_tras", dato.charAt(0) == 's'? true:false);
 						
-						rs.updateInt("stock", (int)validaNumero("Stock > " ));
+						System.out.println("!!!!!! > Modificar stock? (s/N)");
+						resp = teclado.nextLine().trim().toLowerCase();
+						if(resp.length() > 0) {
+							if(resp.charAt(0) == 's') {
+								rs.updateInt("stock", (int)validaNumero("Stock > " ));
+							}
+						}
 						
-						rs.updateDouble("pvp", validaNumero("PVP > " ));
+						System.out.println("!!!!!! > Modificar PVP? (s/N)");
+						resp = teclado.nextLine().trim().toLowerCase();
+						if(resp.length() > 0) {
+							if(resp.charAt(0) == 's') {
+								rs.updateDouble("pvp", validaNumero("PVP > " ));
+							}
+						}
 						
 						rs.updateRow();
 					}
 				}
 			}
 			
-			System.out.print("Registros mostrados : " + cont + " / Modificados: " + mod);
+			if(cont > 0) {
+				System.out.print("Registros mostrados : " + cont + " / Modificados: " + mod + "\n");
+			}else {
+				System.out.println("No se han encontrado registros");
+			}
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -103,8 +122,8 @@ public final class Modificaciones {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
 	}
+	
 	
 	public static void modGrp() { //Modificaciones en grupo
 		
@@ -114,7 +133,6 @@ public final class Modificaciones {
 		double descuento = 0;
 		
 		System.out.println("***LIQUIDACION ULTIMAS UNIDADES***\n");
-		
 			
 		try(PreparedStatement ps = conectarPS(query)) {
 			
@@ -124,7 +142,9 @@ public final class Modificaciones {
 					try {
 						
 						System.out.print("Stock minimo para aplicar descuento > ");
-						stockMin = Integer.parseInt(teclado.nextLine());
+						String entrada = teclado.nextLine();
+						if(cancelar(entrada)) return;
+						stockMin = Integer.parseInt(entrada);
 						validaSigno(stockMin, 0);
 						
 						System.out.print("\nDescuento a aplicar (%) > ");
@@ -173,7 +193,5 @@ public final class Modificaciones {
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 		}
-		
 	}
-	
 }

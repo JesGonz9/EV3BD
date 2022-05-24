@@ -38,11 +38,12 @@ public final class Conexion {
 	}
 	
 	//Callable Statement
-	public static ResultSet conectarCal(String filtro) throws SQLException {
+	public static ResultSet conectarCal(String marca) throws SQLException {
 		
 		Connection cn = conexion();
 		CallableStatement cst = cn.prepareCall("{call stockCero(?)}");
-		cst.setString(1, filtro);
+		cst.setString(1, marca);
+		
 		return cst.executeQuery();
 	}
 	

@@ -13,6 +13,7 @@ public final class Validaciones {
 		}
 	}
 	
+	
 	public static void validaSigno(int num, int signo) throws Exception {
 		
 		if(signo >= 0) {
@@ -29,26 +30,37 @@ public final class Validaciones {
 		}
 	}
 	
+	
 	public static double validaNumero(String mensaje) {
 		
-		try (Scanner teclado = new Scanner(System.in)) {
-			while(true) {
-				try {
-					System.out.print("\n" + mensaje );
-					return Double.parseDouble(teclado.nextLine().trim());
-					
-				} catch(NumberFormatException e) {
-					System.out.println("Introduce un valor numerico\n");
-				} catch(Exception e) {
-					System.out.println(e.getMessage());
-				}
-				
-			}
-		}
+		Scanner teclado = new Scanner(System.in);
+		double salida = 0;
+		
+		while (true) {
+			try {
 
+				System.out.println(mensaje);
+				salida = Double.parseDouble(teclado.nextLine());
+				break;
+
+			} catch (NumberFormatException e) {
+				System.out.println("Debes introducir un valor numerico");
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} 
+		}
+		return salida;
+		
+	}		
+	
+	public static boolean cancelar(String in) {
+		if(in.isEmpty()) {
+			System.out.println("Cancelado\n\n");
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
-	
-	
 	
 }

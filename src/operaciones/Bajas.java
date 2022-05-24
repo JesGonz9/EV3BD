@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import static utilidades.Conexion.conectarSTmod;
 import static utilidades.Conexion.conectarPS;
+import static utilidades.Validaciones.*;
 
 public final class Bajas {
 	
@@ -18,17 +19,24 @@ public final class Bajas {
 		
 		System.out.print("Modelo que contenga > ");
 		String contiene = teclado.nextLine().trim();
+		if(cancelar(contiene)) return;
+		
 		String query = String.format("SELECT * FROM bicicletas WHERE modelo LIKE '%c%s%c' ORDER BY marca", '%', contiene, '%');
 		
 		try(ResultSet rs = conectarSTmod(query)) {
 			
 			int del = 0;
+			int cont = 0;
+			boolean swDatos = false;
 			
 			while(rs.next()) {
 				
+				swDatos = true;
+				cont ++;
+				
 				System.out.printf("%8s %12s %7s %8s %15s %15s %10s %10s %7s %6s \n", "MARCA", "MODELO", "TALLA", "COLOR", "FRENO", "MATERIAL", "SUSP_DEL", "SUSP_TRAS", "STOCK", "PVP");
 				System.out.printf(
-					"%10s %10s %5s %10s %20s %10s %7s %10s %8d %10.2f \n",
+					"%10s %10s %5s %10s %20s %10s %7s %10s %8d %,10.2f \n",
 						rs.getString("marca"),
 						rs.getString("modelo"),
 						rs.getString("talla"),
@@ -51,17 +59,20 @@ public final class Bajas {
 				}
 			}
 			
-			System.out.println("Registros eliminados: " + del);
+			if(swDatos) {
+				System.out.print("Registros mostrados : " + cont + " / Eliminados: " + del + "\n");
+			} else {
+				System.out.println("No se han encontrado registros");
+			}
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
-		
-		
+		}	
 	}
+	
 	
 	public static void bajasGrp() {
 		
@@ -69,11 +80,11 @@ public final class Bajas {
 		
 		System.out.println("***ELIMINACION DE ARTICULOS SEGUN MARCA ***\n");
 		
-		
 		try(PreparedStatement ps = conectarPS(query)){
 			
 				System.out.print("Marca a eliminar > ");
 				String eliminar = teclado.nextLine().trim();
+				if(cancelar(eliminar)) return;
 				
 				ps.setString(1, eliminar);
 				
@@ -97,17 +108,13 @@ public final class Bajas {
 						System.out.println("Operacion cancelada");
 					}
 				}
-				
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
-		
+		}	
 	}
-	
-	
 	
 }

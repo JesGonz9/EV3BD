@@ -2,10 +2,8 @@ package operaciones;
 
 import java.sql.*;
 import java.util.Scanner;
-
-import static utilidades.Validaciones.validaNumero;
+import static utilidades.Validaciones.*;
 import static utilidades.Conexion.conectarPS;
-
 
 public final class Altas {
 	
@@ -30,25 +28,26 @@ public final class Altas {
 			ps.executeUpdate();
 			System.out.println("Listado actualizado!");
 			
-			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-	
 	}
 	
 	public static void alta() {
 		
-		try (Scanner teclado = new Scanner(System.in)) {
+		Scanner teclado = new Scanner(System.in);
+		
 			String[] datos = new String[8];
 			
 			System.out.println("Introduce los siguiente datos:");
 			
 			System.out.print("Marca > ");
-			datos[0] = teclado.nextLine().trim();
+			String entrada = teclado.nextLine().trim();
+			if(cancelar(entrada)) return;
+			datos[0] = entrada;
 
 			System.out.print("\nModelo > ");
 			datos[1] = teclado.nextLine().trim();
@@ -76,7 +75,6 @@ public final class Altas {
 			double pvp = validaNumero("PVP > ");
 			
 			altaDatos(datos, stock, pvp);
-		}
-	
+		
 	}
 }

@@ -7,14 +7,12 @@ import static operaciones.Bajas.*;
 import static operaciones.Calculos.*;
 import static operaciones.Listado.*;
 import static operaciones.Modificaciones.*;
+import static utilidades.Validaciones.*;
 import utilidades.MiMenu;
 
 /*TODO
- * Opciones de salir en los menus
- * Opciones de seguir haciendo gestiones
- * Parametrizar pruebas con JUnit
+ * 
  */
-
 
 
 public class Principal {
@@ -22,67 +20,98 @@ public class Principal {
 	public static void main(String[] args) {
 		
 		//Menus 
-		MiMenu principal = new MiMenu("SISTEMA DE GESTION DE INVENTARIO", "Listado de productos", "Añadir productos", "Modificar productos", "Eliminar productos", "Calculo de medias", "Salir");	
-		MiMenu listado = new MiMenu("OPCIONES DE LISTADO", "Listado completo", "Listado Parcial");
-		MiMenu modif = new MiMenu("OPCIONS DE MODIFICACION", "En grupo", "Individuales");
-		MiMenu bajas = new MiMenu("OPCIONES DE ELIMINACION", "Individualmente", "Por grupos");
+		MiMenu principal = new MiMenu("SISTEMA DE GESTION DE INVENTARIO", "Listado de productos", "Añadir productos", "Modificar productos", "Eliminar productos", "Productos a cero", "Salir");	
+		MiMenu listado = new MiMenu("OPCIONES DE LISTADO", "Listado completo", "Listado Parcial", "Salir");
+		MiMenu modif = new MiMenu("OPCIONS DE MODIFICACION", "En grupo", "Individuales", "Salir");
+		MiMenu bajas = new MiMenu("OPCIONES DE ELIMINACION", "Individualmente", "Por grupos", "Salir");
 		
 		//Inicio de la app
-		try (Scanner teclado = new Scanner(System.in)) {
+		
+		Scanner teclado = new Scanner(System.in);
+		
+			boolean sw = true;
 			
-			principal.ver();
-			
-			switch(principal.getOpcion()) {
-			
-			case 1:
-				listado.ver();
-				if(listado.getOpcion() == 1) {
-					consultaListado();
+			while (sw) {
+				
+				principal.ver();
+				switch (principal.getOpcion()) {
+
+				case 1:
 					
-				} else {
-					System.out.println("Numero de Registros a mostrar > ");
-					consultaListado(Math.abs(Integer.parseInt(teclado.nextLine())));
-				}
-				break;
-			
-			case 2: alta(); break;
-				
-			case 3: 
-				modif.ver();
-				
-				switch(modif.getOpcion()) {
-				
-				case 1: modGrp(); break;
-				case 2: modInd(); break;
-				}
+					listado.ver();
+					switch (listado.getOpcion()) {
 
+					case 1:
+						consultaListado();
+						MiMenu.continuar();
+						break;
+					case 2:
+						double lineas = validaNumero("Numero de Registros a mostrar > ");
+						consultaListado((int)lineas);
+						MiMenu.continuar();
+						break;
+					case 3: 
+						break;
+					}
+					
 				break;
-			
-			case 4: 
-				bajas.ver();
-				switch(bajas.getOpcion()) {
-				
-				case 1: bajasInd(); break;
-				case 2: bajasGrp(); break;
+
+				case 2:
+					alta();
+					MiMenu.continuar();
+					break;
+
+				case 3:
+					modif.ver();
+
+					switch (modif.getOpcion()) {
+
+					case 1:
+						modGrp();
+						MiMenu.continuar();
+						break;
+					case 2:
+						modInd();
+						MiMenu.continuar();
+						break;
+					case 3: 
+						break;
+					}
+
+					break;
+
+				case 4:
+					bajas.ver();
+					switch (bajas.getOpcion()) {
+
+					case 1:
+						bajasInd();
+						MiMenu.continuar();
+						break;
+					case 2:
+						bajasGrp();
+						MiMenu.continuar();
+						break;
+					case 3: 
+						break;
+					}
+					
+					break;
+
+				case 5:
+					System.out.print("Marca > ");
+					String marca = teclado.nextLine().trim();
+					stockCero(marca);
+					MiMenu.continuar();
+					break;
+
+				case 6:
+					System.out.println("---------- FIN ----------");
+					sw = false;
+					break;
 				}
-				
-				break;
-			
-			case 5:
-				System.out.print("Marca > ");
-				String marca = teclado.nextLine().trim();
-				calculoMedia(marca);
-				
-				break;
-			
-			case 6:
-				principal.salirMenu();
-			
 			}
-		} catch (NumberFormatException e) {
-
-			System.out.println(e.getMessage());
-		}
+			
 		
 		
 		

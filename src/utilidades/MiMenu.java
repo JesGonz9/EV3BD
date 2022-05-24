@@ -76,6 +76,12 @@ public class MiMenu {
 	public boolean salirMenu() {
 		return this.opcion == menu.size();
 	}
+	
+	public static void continuar() {
+		Scanner teclado = new Scanner(System.in);
+		System.out.println("Intro para continuar...\n");
+		if(teclado.nextLine().isEmpty()) return;
+	}
 
 	@Override
 	public String toString() {

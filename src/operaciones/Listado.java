@@ -3,6 +3,7 @@ package operaciones;
 import java.sql.*;
 
 import static utilidades.Conexion.conectarST;
+import static utilidades.Validaciones.*;
 
 
 public final class Listado {
@@ -55,8 +56,10 @@ public final class Listado {
 					
 					do {
 						
+						if(cont == filas) break; //Controlar las filas que se imprimen
+						
 						System.out.printf(
-								"%10s %10s %5s %10s %20s %10s %7s %10s %8d %10.2f \n",
+								"%10s %10s %5s %10s %20s %10s %7s %10s %8d %,10.2f \n",
 									rs.getString("marca"),
 									rs.getString("modelo"),
 									rs.getString("talla"),
@@ -68,12 +71,13 @@ public final class Listado {
 									rs.getInt("stock"),
 									rs.getDouble("pvp")
 									);
+						
 							cont++;
-								
-							if(cont == filas) break; //Controlar las filas que se imprimen
 							
 					} while (rs.next());
 					
+					//Restaurar su valor inicial
+					filas = -1;
 					System.out.println("\n Hay " + cont + " bicicletas en lista");
 					
 				} else {
