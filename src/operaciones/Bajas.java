@@ -36,7 +36,7 @@ public final class Bajas {
 				
 				System.out.printf("%8s %12s %7s %8s %15s %15s %10s %10s %7s %6s \n", "MARCA", "MODELO", "TALLA", "COLOR", "FRENO", "MATERIAL", "SUSP_DEL", "SUSP_TRAS", "STOCK", "PVP");
 				System.out.printf(
-					"%10s %10s %5s %10s %20s %10s %7s %10s %8d %,10.2f \n",
+					"%10s %10s %5s %10s %20s %10s %7s %10s %8d %,10.2f€ \n",
 						rs.getString("marca"),
 						rs.getString("modelo"),
 						rs.getString("talla"),

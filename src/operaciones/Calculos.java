@@ -15,7 +15,7 @@ public final class Calculos {
 		if(cancelar(marca)) return;
 
 		try {
-			
+
 			consultaListado(conectarCal(marca));
 			
 		} catch (SQLException e) {

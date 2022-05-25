@@ -59,7 +59,7 @@ public final class Listado {
 						if(cont == filas) break; //Controlar las filas que se imprimen
 						
 						System.out.printf(
-								"%10s %10s %5s %10s %20s %10s %7s %10s %8d %,10.2f \n",
+								"%10s %10s %5s %10s %20s %10s %7s %10s %8d %,10.2f€ \n",
 									rs.getString("marca"),
 									rs.getString("modelo"),
 									rs.getString("talla"),

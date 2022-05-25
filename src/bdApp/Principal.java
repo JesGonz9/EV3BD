@@ -93,6 +93,7 @@ public class Principal {
 					break;
 
 				case 5:
+					System.out.println("Marca para buscar articulos en stock 0 \n");
 					System.out.print("Marca > ");
 					String marca = teclado.nextLine().trim();
 					stockCero(marca);
