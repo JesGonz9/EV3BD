@@ -10,11 +10,6 @@ import static operaciones.Modificaciones.*;
 import static utilidades.Validaciones.*;
 import utilidades.MiMenu;
 
-/*TODO
- * 
- */
-
-
 public class Principal {
 
 	public static void main(String[] args) {
@@ -26,7 +21,6 @@ public class Principal {
 		MiMenu bajas = new MiMenu("OPCIONES DE ELIMINACION", "Individualmente", "Por grupos", "Salir");
 		
 		//Inicio de la app
-		
 		Scanner teclado = new Scanner(System.in);
 		
 			boolean sw = true;

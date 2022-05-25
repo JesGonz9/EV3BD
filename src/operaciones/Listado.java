@@ -37,7 +37,7 @@ public final class Listado {
 			try {
 				log = consultaListado(conectarST(query));
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				System.out.println("ERROR de conexion");
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

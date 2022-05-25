@@ -117,7 +117,7 @@ public final class Modificaciones {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.out.println("ERROR de conexion");
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -188,7 +188,7 @@ public final class Modificaciones {
 			}
 	 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.out.println("ERROR de conexion");
 			
 		} catch (Exception e){
 			System.out.println(e.getMessage());
